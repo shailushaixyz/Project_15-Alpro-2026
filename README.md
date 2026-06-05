@@ -2,13 +2,17 @@
 
 Repository ini digunakan untuk pengerjaan project kelompok praktikum Algoritma dan Pemrograman.
 
-## Cara Mengambil Project
+## Cara Bergabung
 
-Clone repository:
+### 1. Fork Repository
+
+Klik tombol **Fork** pada repository ini untuk membuat salinan repository ke akun GitHub masing-masing.
+
+### 2. Clone Repository Hasil Fork
 
 ```bash
-git clone https://github.com/USERNAME/REPOSITORY.git
-cd REPOSITORY
+git clone https://github.com/USERNAME-KALIAN/NAMA-REPOSITORY.git
+cd NAMA-REPOSITORY
 ```
 
 Pastikan Git sudah terinstall:
@@ -19,17 +23,45 @@ git --version
 
 ---
 
-## Aturan Pengerjaan
+## Membuat Branch
 
-### Sebelum Mulai Coding
+Setiap anggota wajib bekerja pada branch masing-masing.
 
-Ambil perubahan terbaru dari repository:
+Format:
 
-```bash
-git pull origin main
+```text
+dev-nama
 ```
 
-### Simpan Perubahan
+Contoh:
+
+```bash
+git checkout -b dev-chandra
+git checkout -b dev-rizki
+git checkout -b dev-hirsya
+```
+
+---
+
+## Sebelum Mulai Coding
+
+Tambahkan repository utama sebagai upstream:
+
+```bash
+git remote add upstream https://github.com/OWNER/NAMA-REPOSITORY.git
+```
+
+Ambil perubahan terbaru:
+
+```bash
+git fetch upstream
+git checkout main
+git merge upstream/main
+```
+
+---
+
+## Menyimpan Perubahan
 
 ```bash
 git add .
@@ -46,33 +78,45 @@ git commit -m "Menyelesaikan tugas 2"
 
 ---
 
-## Karena Belum Menjadi Collaborator
+## Push ke Repository Fork
 
-Kalian **tidak dapat melakukan push langsung ke repository ini**.
+```bash
+git push origin dev-nama
+```
 
-Setelah menyelesaikan bagian masing-masing:
+Contoh:
 
-1. Commit perubahan di komputer masing-masing.
-2. Kirim file hasil pekerjaan ke ketua kelompok.
-3. Ketua kelompok yang akan menggabungkan perubahan ke repository utama.
+```bash
+git push origin dev-chandra
+```
+
+---
+
+## Membuat Pull Request
+
+Setelah pekerjaan selesai:
+
+1. Buka repository fork milik kalian di GitHub.
+2. Klik **Compare & Pull Request**.
+3. Pastikan target repository adalah repository utama kelompok.
+4. Berikan judul dan deskripsi yang jelas.
+5. Submit Pull Request.
+
+Pull Request akan direview sebelum digabungkan ke branch utama.
 
 ---
 
 ## Aturan Kelompok
 
-✅ Selalu pull sebelum mulai bekerja
+✅ Selalu sinkronkan repository sebelum mulai bekerja.
 
-```bash
-git pull origin main
-```
+✅ Gunakan branch masing-masing.
 
-✅ Commit dengan pesan yang jelas
+✅ Commit dengan pesan yang jelas.
 
-✅ Kerjakan bagian yang sudah dibagi
+✅ Buat Pull Request setelah pekerjaan selesai.
 
-❌ Jangan mengubah bagian anggota lain tanpa koordinasi
-
-❌ Jangan menghapus file project tanpa izin
+❌ Jangan commit langsung ke branch `main`.
 
 ❌ Jangan menggunakan:
 
@@ -80,21 +124,29 @@ git pull origin main
 git push --force
 ```
 
+❌ Jangan mengubah bagian anggota lain tanpa koordinasi.
+
+❌ Jangan menghapus file project tanpa izin.
+
 ---
 
-## Alur Kerja
+## Alur Kerja Singkat
 
 ```bash
-git pull origin main
+git clone <repository-fork>
+
+git checkout -b dev-nama
 
 # coding
 
 git add .
 
 git commit -m "Perubahan"
+
+git push origin dev-nama
 ```
 
-Setelah selesai, kirim file atau folder yang berubah kepada ketua kelompok untuk digabungkan ke repository utama.
+Kemudian buat Pull Request ke repository utama.
 
 ---
 
