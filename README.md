@@ -150,6 +150,22 @@ Kemudian buat Pull Request ke repository utama.
 
 ---
 
+## Cara Compile & Menjalankan Program
+
+Untuk melakukan kompilasi program, jalankan perintah berikut di terminal:
+
+```bash
+g++ src/*.cpp -I include -o bin/main
+```
+
+Setelah berhasil di-compile, jalankan program dengan perintah:
+
+```bash
+./bin/main
+```
+
+---
+
 ## Jika Terjadi Error
 
 Screenshot pesan error dan kirim ke grup agar dapat dibantu bersama.
