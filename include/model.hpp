@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <string>
 
@@ -28,23 +29,23 @@ struct Product {
     int stock;
 };
 
-struct CartItem {
-    string productId;
-    string productName;
-    double price;
-    int quantity;
-    double subtotal;
-};
+// struct CartItem {
+//     string productId;
+//     string productName;
+//     double price;
+//     int quantity;
+//     double subtotal;
+// };
 
 // need pivot model
-struct Transaction {
-    string id;
-    string cashierId;
-    string date;
-    double total;
-    double payment;
-    double change;
-};
+// struct Transaction {
+//     string id;
+//     string cashierId;
+//     string date;
+//     double total;
+//     double payment;
+//     double change;
+// };
 
 struct Cash {
     double balance;
