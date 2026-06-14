@@ -47,9 +47,9 @@ struct Product {
 //     double change;
 // };
 
-struct Cash {
-    double balance;
-};
+// struct Cash {
+//     double balance;
+// };
 
 struct CashHistory {
     string id;

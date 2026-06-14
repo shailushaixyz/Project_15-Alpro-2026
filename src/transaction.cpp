@@ -26,7 +26,7 @@ void checkout(
     int cartCount,
     Transaction transactions[],
     int &transactionCount,
-    Cash* cash,
+    Kas* cash,
     string cashierId
 ) {
     if (cartCount == 0) {
@@ -54,19 +54,23 @@ void checkout(
     }
 
     for (int i = 0; i < cartCount; i++) {
-        Product* product = findProduct(products, productCount, cart[i].productId);
+    Product* product = findProduct(products, productCount, cart[i].productId);
 
-        if (product != nullptr) {
-            product->stock -= cart[i].quantity;
-        }
+    if (product != nullptr) {
+        product->stock -= cart[i].quantity;
+    }
     }
 
-    cash->balance += trx.total;
+    cout << "Saldo kas sebelum transaksi: Rp " << cash->saldo << endl;
+
+    cash->saldo += trx.total;
+
+    cout << "Saldo kas setelah transaksi : Rp " << cash->saldo << endl;
 
     transactions[transactionCount] = trx;
     transactionCount++;
 
-    cout << "Transaksi berhasil.\n";
+    cout << "\nTransaksi berhasil.\n";
     cout << "Kembalian: " << trx.change << endl;
 }
 
@@ -75,7 +79,7 @@ void startTransaction(
     int productCount,
     Transaction transactions[],
     int &transactionCount,
-    Cash* cash,
+    Kas* cash,
     string cashierId
 ) {
     CartItem cart[MAX_CART];

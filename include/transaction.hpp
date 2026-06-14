@@ -1,7 +1,7 @@
-#pragma once
 #include "model.hpp"
 #include "cart.hpp"
 #include "utils.hpp"
+#include "kas.hpp"
 
 using namespace std;
 
@@ -24,7 +24,7 @@ void checkout(
     int cartCount,
     Transaction transactions[],
     int &transactionCount,
-    Cash* cash,
+    Kas* cash,
     string cashierId
 );
 
@@ -33,6 +33,6 @@ void startTransaction(
     int productCount,
     Transaction transactions[],
     int &transactionCount,
-    Cash* cash,
+    Kas* cash,
     string cashierId
 );

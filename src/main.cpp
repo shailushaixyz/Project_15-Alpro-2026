@@ -1,6 +1,10 @@
+#include <iostream>
 #include "model.hpp"
 #include "cart.hpp"
 #include "transaction.hpp"
+#include "kas.hpp"
+
+using namespace std;
 
 int main() {
     Product products[100];
@@ -12,19 +16,48 @@ int main() {
     Transaction transactions[100];
     int transactionCount = 0;
 
-    Cash cash;
-    cash.balance = 100000;
+    Kas cash;
+    muatDataKas(&cash);
 
     string cashierId = "KS001";
 
-    startTransaction(
-        products,
-        productCount,
-        transactions,
-        transactionCount,
-        &cash,
-        cashierId
-    );
+    int pilihan;
+
+    do {
+        cout << "\n=== MENU KASIR ===\n";
+        cout << "1. Transaksi Baru\n";
+        cout << "2. Manajemen Kas\n";
+        cout << "0. Keluar\n";
+        cout << "Pilih: ";
+        cin >> pilihan;
+
+        switch (pilihan) {
+            case 1:
+                startTransaction(
+                    products,
+                    productCount,
+                    transactions,
+                    transactionCount,
+                    &cash,
+                    cashierId
+                );
+                simpanDataKas(&cash);
+                break;
+
+            case 2:
+                tampilkanMenuKas(&cash);
+                break;
+
+            case 0:
+                simpanDataKas(&cash);
+                cout << "Keluar program.\n";
+                break;
+
+            default:
+                cout << "Pilihan tidak valid.\n";
+        }
+
+    } while (pilihan != 0);
 
     return 0;
 }
