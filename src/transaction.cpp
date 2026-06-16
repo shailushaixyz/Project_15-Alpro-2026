@@ -136,3 +136,76 @@ void startTransaction(
         }
     }
 }
+
+void transactionHistory(Transaction transactions[], int transactionCount) {
+    if (transactionCount == 0) {
+        cout << "belum ada transaksi.\n";
+        return;
+    }
+
+    cout << "Riwayat Transaksi:\n";
+    for (int i = 0; i < transactionCount; i++) {
+        cout << transactions[i].id << " | "
+             << transactions[i].cashierId << " | "
+             << transactions[i].date << " | "
+             << "total: " << transactions[i].total << " | "
+             << "bayar: " << transactions[i].payment << " | "
+             << "kembalian: " << transactions[i].change << endl;
+    }
+}
+
+void totalSales(Transaction transactions[], int transactionCount) {
+    double total = 0;
+    for (int i = 0; i < transactionCount; i++) {
+        total += transactions[i].total;
+    }
+    cout << "total penjualan: Rp " << total << endl;
+}
+
+void soldProducts(Transaction transactions[], int transactionCount) {
+    if (transactionCount == 0) {
+        cout << "belum ada transaksi.\n";
+        return;
+    }
+
+    cout << "Produk Terjual:\n";
+    for (int i = 0; i < transactionCount; i++) {
+        cout << transactions[i].id << " | "
+             << transactions[i].cashierId << " | "
+             << transactions[i].date << " | "
+             << "Total: " << transactions[i].total << endl;
+    }
+}
+
+void tampilkanMenuLaporan(Transaction transactions[], int transactionCount) {
+    int pilihan;
+    do {
+        cout << "\n==================================================\n";
+        cout << "               SISTEM MANAJEMEN KAS               \n";
+        cout << "==================================================\n";
+        cout << "  [1] List Transaksi                              \n";
+        cout << "  [2] Total Penjualan                             \n";
+        cout << "  [3] Produk Terjual                              \n";
+        cout << "--------------------------------------------------\n";
+        cout << "  [0] Kembali ke Menu Kasir                       \n";
+        cout << "==================================================\n";
+        cout << ">> Masukkan kode pilihan Anda (0-3): ";
+        cin >> pilihan;
+
+        switch (pilihan) {
+            case 1:
+                transactionHistory(transactions, transactionCount);
+                break;
+            case 2:
+                totalSales(transactions, transactionCount);
+                break;
+            case 3:
+                soldProducts(transactions, transactionCount);
+                break;
+            case 0:
+                break;
+            default:
+                cout << "Pilihan tidak valid.\n";
+        }
+    } while (pilihan != 0);
+}
