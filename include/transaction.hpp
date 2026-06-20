@@ -1,4 +1,4 @@
-#include "model.hpp"
+#include "product.hpp"
 #include "cart.hpp"
 #include "utils.hpp"
 #include "kas.hpp"
@@ -36,3 +36,7 @@ void startTransaction(
     Kas* cash,
     string cashierId
 );
+
+void muatDataTransaksi(Transaction transactions[], int &transactionCount);
+void simpanDataTransaksi(Transaction transactions[], int transactionCount);
+void tampilkanMenuLaporan(Transaction transactions[], int transactionCount);

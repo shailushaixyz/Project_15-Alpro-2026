@@ -1,5 +1,6 @@
 #pragma once
-#include "model.hpp"
+#include "product.hpp"
+#include <string>
 
 using namespace std;
 

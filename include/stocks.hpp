@@ -1,5 +1,5 @@
 #pragma once
-#include "model.hpp"
+#include "product.hpp"
 
 void Stokmenu(Product products[], int productsCount);
 void tambahStok(Product products[], int productsCount);
