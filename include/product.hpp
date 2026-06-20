@@ -1,18 +1,19 @@
-#ifndef PRODUCT_HPP
-#define PRODUCT_HPP
+#pragma once
+#include <string>
 
 struct Product {
-    int id;
-    char nama[100];
-    int harga;
-    int stok;
+    std::string id;
+    std::string name;
+    double price;
+    int stock;
 };
 
-void tambahProduk();
-void editProduk();
-void hapusProduk();
-void lihatProduk();
-void cariProduk();
-void menuProduk();
+void tambahProduk(Product daftarProduk[], int& jumlahProduk);
+void editProduk(Product daftarProduk[], int jumlahProduk);
+void hapusProduk(Product daftarProduk[], int& jumlahProduk);
+void lihatProduk(Product daftarProduk[], int jumlahProduk);
+void cariProduk(Product daftarProduk[], int jumlahProduk);
+void menuProduk(Product daftarProduk[], int& jumlahProduk);
 
-#endif
+void muatDataProduk(Product daftarProduk[], int& jumlahProduk);
+void simpanDataProduk(Product daftarProduk[], int jumlahProduk);

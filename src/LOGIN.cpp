@@ -1,17 +1,13 @@
-#include <iostream>
-#include <vector>   
-#include <string>   
+#include "core.hpp"
 
-using namespace std;
+void tampilkanMenuLoginUI();
+void tampilkanMenuAdminUI(string nama);
 
 // ================= FUNGSI SISTEM (LOGIN & MENU) =================
 
-string prosesLogin(Akun &userAktif) {
+string prosesLogin(Akun &userAktif, Akun dataPengguna[], int jumlahPengguna) {
     bersihkanLayar();
-    cout << "=========================================\n";
-    cout << "               MENU LOGIN                \n";
-    cout << "=========================================\n";
-    cout << "Ketik 'exit' pada Username untuk keluar program.\n\n";
+    tampilkanMenuLoginUI();
     
     string uname, pwd;
     cout << "Username : "; cin >> uname;
@@ -23,13 +19,13 @@ string prosesLogin(Akun &userAktif) {
     cout << "Password : "; cin >> pwd;
 
     // Cek username, kecocokan password, lalu kembalikan rolenya
-    for (const auto& akun : dataPengguna) {
-        if (akun.username == uname && akun.password == pwd) {
-            userAktif = akun; 
+    for (int i = 0; i < jumlahPengguna; i++) {
+        if (dataPengguna[i].username == uname && dataPengguna[i].password == pwd) {
+            userAktif = dataPengguna[i]; 
             
-            if (akun.role == "Admin") {
+            if (dataPengguna[i].role == "Admin") {
                 return "Admin";
-            } else if (akun.role == "Kasir") {
+            } else if (dataPengguna[i].role == "Kasir") {
                 return "Kasir";
             }
         }
@@ -38,100 +34,47 @@ string prosesLogin(Akun &userAktif) {
     return "Gagal"; 
 }
 
-void menuAdmin(Akun adminAktif) {
+void menuAdmin(Akun adminAktif, Product products[], int& productCount, Akun dataPengguna[], int& jumlahPengguna) {
     bool sesiAktif = true;
     while (sesiAktif) {
         bersihkanLayar();
-        cout << "=========================================\n";
-        cout << "               MENU ADMIN                \n";
-        cout << "=========================================\n";
-        cout << "Halo, " << adminAktif.nama << "!\n\n";
-        cout << "1. Tambah Akun Kasir\n";
-        cout << "2. Lihat Daftar Kasir\n";
-        cout << "3. Edit Akun Kasir\n";
-        cout << "4. Hapus Akun Kasir\n";
-        cout << "5. Logout\n";
-        cout << "-----------------------------------------\n";
+        tampilkanMenuAdminUI(adminAktif.nama);
         
-        string pilihan;
-        cout << "Pilih menu [1-5]: ";
-        cin >> pilihan;
+        int pilihanInt = inputChoice(0, 3);
+        string pilihan = to_string(pilihanInt);
 
         if (pilihan == "1") {
-            string u, p, n;
-            cout << "\n=== TAMBAH KASIR ===\n";
-            cout << "Username Baru : "; cin >> u;
-            cout << "Password Baru : "; cin >> p;
-            cout << "Nama Kasir    : "; 
-            cin.ignore(); getline(cin, n);
-            tambahAkunKasir(u, p, n);
-            jedaLayar();
+            menuManajemenAkun(dataPengguna, jumlahPengguna);
         } 
         else if (pilihan == "2") {
-            lihatDaftarKasir();
-            jedaLayar();
-        } 
+            menuProduk(products, productCount);
+        }
         else if (pilihan == "3") {
-            string target, u, p, n;
-            cout << "\n=== EDIT KASIR ===\n";
-            cout << "Masukkan Username yang ingin diedit: "; cin >> target;
-            cout << "Username Baru (- jika tidak diubah): "; cin >> u;
-            cout << "Password Baru (- jika tidak diubah): "; cin >> p;
-            cout << "Nama Baru (- jika tidak diubah)    : "; 
-            cin.ignore(); getline(cin, n);
-            if(n.empty()) n = "-";
-            editAkunKasir(target, u, p, n);
-            jedaLayar();
-        } 
-        else if (pilihan == "4") {
-            string target;
-            cout << "\n=== HAPUS KASIR ===\n";
-            cout << "Masukkan Username yang ingin dihapus: "; cin >> target;
-            hapusAkunKasir(target);
-            jedaLayar();
-        } 
-        else if (pilihan == "5") {
-            cout << "\n[+] Anda berhasil logout dari Admin.\n";
+            Stokmenu(products, productCount);
+        }
+        else if (pilihan == "0") {
+            cout << GREEN << "\n[+] Anda berhasil logout dari Admin.\n" << RESET;
             jedaLayar();
             return; 
-        } 
-        else {
-            cout << "\n[!] Pilihan tidak valid!\n";
-            jedaLayar();
         }
     }
 }
 
-void menuKasir(Akun kasirAktif) {
-    bool sesiAktif = true;
-    while (sesiAktif) {
-        bersihkanLayar();
-        cout << "=========================================\n";
-        cout << "               MENU KASIR                \n";
-        cout << "=========================================\n";
-        cout << "Halo, " << kasirAktif.nama << "!\n\n";
-        cout << "1. Menu Transaksi (Belum Tersedia)\n";
-        cout << "2. Logout\n";
-        cout << "-----------------------------------------\n";
-        
-        string pilihan;
-        cout << "Pilih menu [1-2]: ";
-        cin >> pilihan;
-
-        if (pilihan == "1") {
-            cout << "\n[!] Fitur transaksi sedang dalam pengembangan...\n";
-            jedaLayar();
-        } 
-        else if (pilihan == "2") {
-            cout << "\n[+] Anda berhasil logout dari Kasir.\n";
-            jedaLayar();
-            return; 
-        } 
-        else {
-            cout << "\n[!] Pilihan tidak valid!\n";
-            jedaLayar();
-        }
-    }
+void tampilkanMenuLoginUI() {
+    cout << CYAN << "=========================================\n";
+    cout << "               MENU LOGIN                \n";
+    cout << "=========================================\n" << RESET;
+    cout << YELLOW << "Ketik 'exit' pada Username untuk keluar program.\n\n" << RESET;
 }
 
-
+void tampilkanMenuAdminUI(string nama) {
+    cout << CYAN << "=========================================\n";
+    cout << "               MENU ADMIN                \n";
+    cout << "=========================================\n" << RESET;
+    cout << BOLD << "Halo, " << nama << "!\n\n" << RESET;
+    cout << "  [1] Manajemen Akun\n";
+    cout << "  [2] Manajemen Produk\n";
+    cout << "  [3] Manajemen Stok\n";
+    cout << "  [0] Logout\n";
+    cout << "-----------------------------------------\n";
+}

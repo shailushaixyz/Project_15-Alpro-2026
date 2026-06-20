@@ -1,7 +1,6 @@
-#include <iostream>
-#include <fstream>
-#include "kas.hpp"
-using namespace std;
+#include "core.hpp"
+
+void tampilkanMenuSistemKasUI();
 
 const string FILE_KAS = "data_kas.txt"; 
 
@@ -24,28 +23,35 @@ void simpanDataKas(const Kas* dataKas) {
 }
 
 void cekSaldoKas(const Kas* dataKas) {
-    cout << "\n=== CEK SALDO KAS ===\n";
-    cout << "Total Saldo Kas Saat Ini: Rp " << dataKas->saldo << "\n";
-    cout << "=====================\n";
+    cout << CYAN << "\n==================================================\n";
+    cout << "                  CEK SALDO KAS                   \n";
+    cout << "==================================================\n" << RESET;
+    cout << "Total Saldo Kas Saat Ini : " << GREEN << BOLD << "Rp " << dataKas->saldo << RESET << "\n";
+    cout << CYAN << "--------------------------------------------------\n" << RESET;
 }
 
 void setorKas(Kas* dataKas) {
     long long nominal;
-    cout << "\n=== SETOR KAS ===\n";
+    cout << CYAN << "\n==================================================\n";
+    cout << "                    SETOR KAS                     \n";
+    cout << "==================================================\n" << RESET;
     cout << "Masukkan nominal setor (Rp): ";
     cin >> nominal;
     if (nominal > 0) {
         dataKas->saldo += nominal;
         simpanDataKas(dataKas);
-        cout << ">> Sukses! Berhasil menyetor Rp " << nominal << " ke dalam kas.\n";
+        cout << GREEN << ">> Sukses! Berhasil menyetor Rp " << nominal << " ke dalam kas.\n" << RESET;
+        cout << ">> Total saldo kas saat ini: " << GREEN << BOLD << "Rp " << dataKas->saldo << RESET << "\n";
     } else {
-        cout << ">> Gagal! Nominal tidak valid.\n";
+        cout << RED << ">> Gagal! Nominal tidak valid.\n" << RESET;
     }
 }
 
 void tarikKas(Kas* dataKas) {
     long long nominal;
-    cout << "\n=== TARIK KAS ===\n";
+    cout << CYAN << "\n==================================================\n";
+    cout << "                    TARIK KAS                     \n";
+    cout << "==================================================\n" << RESET;
     cout << "Masukkan nominal tarik (Rp): ";
     cin >> nominal;
 
@@ -53,12 +59,13 @@ void tarikKas(Kas* dataKas) {
         if (dataKas->saldo >= nominal) {
             dataKas->saldo -= nominal; 
             simpanDataKas(dataKas);
-            cout << ">> Sukses! Berhasil menarik Rp " << nominal << " dari kas.\n";
+            cout << GREEN << ">> Sukses! Berhasil menarik Rp " << nominal << " dari kas.\n" << RESET;
+            cout << ">> Total saldo kas saat ini: " << GREEN << BOLD << "Rp " << dataKas->saldo << RESET << "\n";
         } else {
-            cout << ">> Gagal! Saldo kas tidak mencukupi untuk penarikan ini.\n";
+            cout << RED << ">> Gagal! Saldo kas tidak mencukupi untuk penarikan ini.\n" << RESET;
         }
     } else {
-        cout << ">> Gagal! Nominal tidak valid.\n";
+        cout << RED << ">> Gagal! Nominal tidak valid.\n" << RESET;
     }
 }
 
@@ -67,33 +74,41 @@ void tampilkanMenuKas(Kas* dataKas) {
     bool selesai = false;
     muatDataKas(dataKas);
     while (!selesai) {
-        cout << "\n==================================================\n";
-        cout << "               SISTEM MANAJEMEN KAS               \n";
-        cout << "==================================================\n";
-        cout << "  [1] Cek Saldo Kas                               \n";
-        cout << "  [2] Setor Kas                                   \n";
-        cout << "  [3] Tarik Kas                                   \n";
-        cout << "--------------------------------------------------\n";
-        cout << "  [0] Kembali ke Menu Kasir                       \n";
-        cout << "==================================================\n";
-        cout << ">> Masukkan kode pilihan Anda (0-3): ";
-        cin >> pilihan;
+        bersihkanLayar();
+        tampilkanMenuSistemKasUI();
+        pilihan = inputChoice(0, 3);
         switch (pilihan) {
             case 1:
                 cekSaldoKas(dataKas);
+                jedaLayar();
                 break;
             case 2:
                 setorKas(dataKas);
+                jedaLayar();
                 break;
             case 3:
                 tarikKas(dataKas);
+                jedaLayar();
                 break;
             case 0:
                 selesai = true;
                 cout << "\n>> Menyimpan data dan kembali ke Menu Kasir...\n";
+                jedaLayar();
                 break;
             default:
                 cout << "\n>> [ERROR] Pilihan tidak valid! Silakan masukkan angka 0-3.\n";
+                jedaLayar();
         }
     }
+}
+
+void tampilkanMenuSistemKasUI() {
+    cout << CYAN << "==================================================\n";
+    cout << "               SISTEM MANAJEMEN KAS               \n";
+    cout << "==================================================\n" << RESET;
+    cout << "  [1] Cek Saldo Kas                               \n";
+    cout << "  [2] Setor Kas                                   \n";
+    cout << "  [3] Tarik Kas                                   \n";
+    cout << "  [0] Kembali ke Menu Kasir                       \n";
+    cout << "--------------------------------------------------\n";
 }

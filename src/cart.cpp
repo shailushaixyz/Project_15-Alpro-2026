@@ -1,7 +1,6 @@
-#include "cart.hpp"
-#include "utils.hpp"
+#include "core.hpp"
 
-using namespace std;
+void headerKeranjangUI();
 
 const int MAX_CART = 50;
 
@@ -82,20 +81,28 @@ void addToCart(
 }
 
 void showCart(CartItem cart[], int cartCount) {
-    clearScreen();
+    bersihkanLayar();
 
     if (cartCount == 0) {
-        cout << "Keranjang kosong.\n";
+        cout << YELLOW << "Keranjang kosong.\n" << RESET;
         return;
     }
 
-    cout << "\n===== KERANJANG =====\n";
+    headerKeranjangUI();
 
     for (int i = 0; i < cartCount; i++) {
-        cout << cart[i].productName
-             << " x" << cart[i].quantity
-             << " = " << cart[i].subtotal << endl;
+        cout << left << setw(20) << cart[i].productName
+             << setw(10) << ("x" + to_string(cart[i].quantity))
+             << "Rp " << static_cast<long long>(cart[i].subtotal) << endl;
     }
 
-    cout << "=====================\n";
+    cout << CYAN << "==================================================\n" << RESET;
+}
+
+void headerKeranjangUI() {
+    cout << CYAN << "==================================================\n";
+    cout << "                    KERANJANG                     \n";
+    cout << "==================================================\n" << RESET;
+    cout << left << setw(20) << "NAMA PRODUK" << setw(10) << "JUMLAH" << "SUBTOTAL\n";
+    cout << "--------------------------------------------------\n";
 }

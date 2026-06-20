@@ -1,0 +1,4 @@
+admin1 123 Admin Neza Admin
+kasir1 456 Kasir Alya Kasir
+admin2 123 Kasir Samara
+admin3 456 Kasir Sams
